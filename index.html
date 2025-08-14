@@ -18,7 +18,46 @@
     .hero { padding:72px 0 40px; text-align:center; }
     .hero h1 { font-size: clamp(28px, 6vw, 44px); margin:0 0 10px; }
     .hero p { color:var(--muted); margin:0 0 22px; }
-    .btn { display:inline-block; padding:12px 18px; border-radius:12px; text-decoration:none; color:#0b1220; background:var(--acc); font-weight:600; }
+
+    /* Efekt świecącego przycisku */
+    .btn {
+      position: relative;
+      display:inline-block;
+      padding:12px 18px;
+      border-radius:12px;
+      text-decoration:none;
+      color:#0b1220;
+      background:var(--acc);
+      font-weight:600;
+      overflow:hidden;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      z-index: 1;
+    }
+    .btn::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      padding: 2px;
+      background: linear-gradient(45deg, var(--acc), #0ea5e9, var(--acc));
+      background-size: 300% 300%;
+      filter: blur(8px);
+      opacity: 0;
+      transition: opacity 0.4s ease, background-position 1s ease;
+      z-index: -1;
+    }
+    .btn:hover {
+      color: #0f172a;
+      background: var(--acc);
+      box-shadow: 0 0 20px var(--acc), 0 0 40px #0ea5e9;
+      transform: translateY(-2px);
+    }
+    .btn:hover::before {
+      opacity: 1;
+      background-position: 100% 0;
+    }
+
     .grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap:18px; margin:34px 0 60px; }
     .card { background: rgba(17,24,39,.8); border:1px solid rgba(255,255,255,.06); border-radius:16px; padding:18px; }
     .card h3 { margin:0 0 8px; font-size:18px; }
