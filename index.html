@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mój Profil</title>
+<style>
+:root {
+    --bg:#0f172a;
+    --card:#111827;
+    --text:#e5e7eb;
+    --muted:#9ca3af;
+    --acc:#38bdf8;
+}
+
+* { box-sizing: border-box; margin:0; padding:0; }
+
+body {
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    background:#0f172a;
+    overflow-x:hidden;
+    position:relative;
+}
+
+header {
+    position: sticky;
+    top:0;
+    backdrop-filter: blur(8px);
+    background: rgba(17,24,39,.6);
+    border-bottom:1px solid rgba(255,255,255,.06);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    z-index: 10;
+}
+
+.logo { font-weight:700; font-size: 18px; }
+.logo span { color:var(--acc); }
+
+nav { display:flex; gap:12px; align-items:center; }
+
+.lang-btn {
+    color:#fff;
+    font-size:15px;
+    padding:6px 10px;
+    border-radius:8px;
+    transition: all 0.3s ease;
+    background:none;
+    border:1px solid var(--acc);
+    cursor:pointer;
+}
+
+.lang-btn:hover {
+    background: var(--acc);
+    color:#0b1220;
+}
+
+.container { width: min(1000px, 92%); margin: 0 auto; position:relative; z-index: 2; }
+
+.hero { text-align:center; padding:60px 0 30px; position:relative; z-index:2; }
+
+.hero h1 { font-size: clamp(28px, 6vw, 44px); margin-bottom:10px; }
+.hero p { color:var(--muted); margin-bottom:20px; }
+
+.section {
+    margin: 20px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.1);
+    background: var(--card);
+}
+
+.section-header {
+    padding: 12px 20px;
+    background: rgba(17,24,39,.8);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+}
+
+.section-header h2 {
+    font-size: 20px;
+}
+
+.section-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+    padding: 0 20px;
+}
+
+.grid {
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap:18px;
+    margin: 20px 0;
+}
+
+.card {
+    position: relative;
+    background: linear-gradient(135deg, #6b5b95, #b8a9c9, #38bdf8);
+    border-radius:16px;
+    padding:16px;
+    text-align:center;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: #fff !important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+    animation: animateBg 10s linear infinite;
+}
+
+.card span { position: relative; z-index: 2; font-weight:600; }
+
+@keyframes animateBg {
+    0% { background-position:0% 50%; }
+    50% { background-position:100% 50%; }
+    100% { background-position:0% 50%; }
+}
+
+.card:hover { transform: translateY(-5px) scale(1.05); }
+
+footer {
+    border-top:1px solid rgba(255,255,255,.06);
+    color:var(--muted);
+    font-size:14px;
+    padding:18px 0;
+    text-align:center;
+    position:relative;
+    z-index:2;
+}
+
+canvas#stars {
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    z-index:0;
+    pointer-events:none;
+}
+
+.arrow {
+    transition: transform 0.3s ease;
+}
+
+.arrow.open {
+    transform: rotate(90deg);
+}
+</style>
+</head>
+<body>
+<canvas id="stars"></canvas>
+
+<header>
+    <div class="logo">Mój<span>Profil</span></div>
+    <nav>
+        <button class="lang-btn" id="pl-btn">PL</button>
+        <button class="lang-btn" id="eng-btn">ENG</button>
+    </nav>
+</header>
+
+<main class="container">
+<section class="hero">
+    <h1 id="greeting">Witaj na moim profilu!</h1>
+    <p id="description">Tu znajdziesz moje ulubione gry, zainteresowania, muzykę i TOP streamerów.</p>
+</section>
+
+<!-- Sekcje z możliwością rozwijania -->
+<div id="info">
+
+<!-- Ulubione gry -->
+<div class="section">
+    <div class="section-header">
+        <h2 id="games-title">Ulubione gry</h2>
+        <span class="arrow">▶</span>
+    </div>
+    <div class="section-content">
+        <div class="grid">
+            <a class="card" id="minecraft" href="https://www.minecraft.net" target="_blank"><span>Minecraft</span></a>
+            <a class="card" id="phasmophobia" href="https://store.steampowered.com/app/739630/Phasmophobia/" target="_blank"><span>Phasmophobia</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- Zainteresowania -->
+<div class="section">
+    <div class="section-header">
+        <h2 id="interests-title">Zainteresowania</h2>
+        <span class="arrow">▶</span>
+    </div>
+    <div class="section-content">
+        <div class="grid">
+            <div class="card" id="games"><span>Gry komputerowe</span></div>
+            <div class="card" id="languages"><span>Języki obce</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- Ulubieni artyści -->
+<div class="section">
+    <div class="section-header">
+        <h2 id="artists-title">Ulubieni artyści</h2>
+        <span class="arrow">▶</span>
+    </div>
+    <div class="section-content">
+        <div class="grid">
+            <div class="card" id="bruno"><span>Bruno Mars</span></div>
+            <div class="card" id="billie"><span>Billie Eilish</span></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOP streamerzy -->
+<div class="section">
+    <div class="section-header">
+        <h2 id="streamers-title">TOP streamerzy</h2>
+        <span class="arrow">▶</span>
+    </div>
+    <div class="section-content">
+        <div class="grid">
+            <a class="card" href="https://www.twitch.tv/jynxzi" target="_blank"><span>Jynxzi</span></a>
+            <a class="card" href="https://www.twitch.tv/remsua" target="_blank"><span>Remsua</span></a>
+            <a class="card" href="https://www.twitch.tv/caseoh_" target="_blank"><span>CaseOh</span></a>
+        </div>
+    </div>
+</div>
+
+<!-- Nicknames -->
+<div class="section">
+    <div class="section-header">
+        <h2 id="social-title">Nicknames</h2>
+        <span class="arrow">▶</span>
+    </div>
+    <div class="section-content">
+        <div class="grid">
+            <a class="card" href="https://pl.namemc.com/profile/MamADHD.1" target="_blank" id="mc"><span>Minecraft: MamADHD</span></a>
+            <div class="card" id="discord"><span>Discord: rainbowsausage38</span></div>
+            <a class="card" href="https://www.instagram.com/julkacholajnoga/" target="_blank" id="instagram"><span>Instagram: julkacholajnoga</span></a>
+        </div>
+    </div>
+</div>
+
+</div>
+</main>
+
+<footer>
+    <span id="footer-text">© <span id="year"></span> stworzone przez MamADHD</span>
+    <br>
+    <span style="font-size:13px; color:var(--muted);">Ostatnio zaktualizowane: 15.08.2025 14:56</span>
+</footer>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// Teksty PL/ENG
+const texts = {
+pl: {
+    greeting: "Witaj na moim profilu!",
+    description: "Tu znajdziesz moje ulubione gry, zainteresowania, muzykę i TOP streamerów.",
+    "games-title": "Ulubione gry",
+    "interests-title": "Zainteresowania",
+    "artists-title": "Ulubieni artyści",
+    "streamers-title": "TOP streamerzy",
+    "social-title": "Nicknames",
+    minecraft:"Minecraft",
+    phasmophobia:"Phasmophobia",
+    games:"Gry komputerowe",
+    languages:"Języki obce",
+    bruno:"Bruno Mars",
+    billie:"Billie Eilish",
+    jynxzi:"Jynxzi",
+    remsua:"Remsua",
+    caseoh:"CaseOh",
+    mc:"Minecraft: MamADHD",
+    discord:"Discord: rainbowsausage38",
+    instagram:"Instagram: julkacholajnoga",
+    footer:"© <span id='year'></span> stworzone przez MamADHD"
+},
+eng: {
+    greeting: "Welcome to my profile!",
+    description: "Here you can see my favorite games, interests, music and top streamers.",
+    "games-title": "Favorite Games",
+    "interests-title": "Interests",
+    "artists-title": "Favorite Artists",
+    "streamers-title": "Top Streamers",
+    "social-title": "Nicknames",
+    minecraft:"Minecraft",
+    phasmophobia:"Phasmophobia",
+    games:"Video Games",
+    languages:"Foreign Languages",
+    bruno:"Bruno Mars",
+    billie:"Billie Eilish",
+    jynxzi:"Jynxzi",
+    remsua:"Remsua",
+    caseoh:"CaseOh",
+    mc:"Minecraft: MamADHD",
+    discord:"Discord: rainbowsausage38",
+    instagram:"Instagram: julkacholajnoga",
+    footer:"© <span id='year'></span> created by MamADHD"
+}
+};
+
+function setLanguage(lang){
+    for(let id in texts[lang]){
+        let el = document.getElementById(id);
+        if(el) el.innerHTML = texts[lang][id];
+    }
+}
+
+document.getElementById('pl-btn').addEventListener('click', ()=>setLanguage('pl'));
+document.getElementById('eng-btn').addEventListener('click', ()=>setLanguage('eng'));
+
+// Collapsible Sections
+document.querySelectorAll('.section-header').forEach(header=>{
+    header.addEventListener('click', ()=>{
+        const content = header.nextElementSibling;
+        const arrow = header.querySelector('.arrow');
+        if(content.style.maxHeight){
+            content.style.maxHeight = null;
+            arrow.classList.remove('open');
+        } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            arrow.classList.add('open');
+        }
+    });
+});
+
+// Gwiazdy
+const canvas = document.getElementById("stars");
+const ctx = canvas.getContext("2d");
+let width, height, stars=[], shootingStars=[];
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+window.addEventListener("resize", resize);
+resize();
+
+class Star {
+    constructor(){
+        this.x=Math.random()*width;
+        this.y=Math.random()*height;
+        this.radius=Math.random()*1.2;
+        this.speed=(Math.random()*0.05)+0.02;
+    }
+    draw(){
+        ctx.beginPath();
+        ctx.arc(this.x,this.y,this.radius,0,2*Math.PI);
+        ctx.fillStyle="white";
+        ctx.fill();
+    }
+    update(){
+        this.x+=this.speed;
+        if(this.x>width) this.x=0;
+        this.draw();
+    }
+}
+
+class ShootingStar {
+    constructor(){
+        this.x=Math.random()*width;
+        this.y=Math.random()*height*0.5;
+        this.len=Math.random()*80+20;
+        this.speed=6;
+        this.angle=Math.PI/4;
+        this.active=false;
+    }
+    draw(){
+        if(!this.active) return;
+        ctx.beginPath();
+        ctx.moveTo(this.x,this.y);
+        ctx.lineTo(this.x-Math.cos(this.angle)*this.len,this.y-Math.sin(this.angle)*this.len);
+        ctx.strokeStyle="white";
+        ctx.stroke();
+    }
+    update(){
+        if(!this.active) return;
+        this.x+=Math.cos(this.angle)*this.speed;
+        this.y+=Math.sin(this.angle)*this.speed;
+        if(this.x>width || this.y>height){
+            this.active=false;
+        }
+        this.draw();
+    }
+}
+
+for(let i=0;i<200;i++) stars.push(new Star());
+for(let i=0;i<3;i++) shootingStars.push(new ShootingStar());
+
+function animate(){
+    ctx.clearRect(0,0,width,height);
+    stars.forEach(s=>s.update());
+    if(Math.random()<0.01){
+        let s = shootingStars.find(s=>!s.active);
+        if(s) s.active=true;
+    }
+    shootingStars.forEach(s=>s.update());
+    requestAnimationFrame(animate);
+}
+animate();
+</script>
+</body>
+</html>
